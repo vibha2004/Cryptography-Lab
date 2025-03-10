@@ -100,13 +100,6 @@ public class MD5Manual {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        // Get user input
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
-        
-        // Generate and display MD5 hash
-        String md5Hash = computeMD5(input);
-        System.out.println("MD5 Hash: " + md5Hash);
         
         scanner.close();
     }

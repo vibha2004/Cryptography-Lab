@@ -1,7 +1,7 @@
-
-// Server Side (MD5Server.java)
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class MD5Server {
 
@@ -11,13 +11,18 @@ public class MD5Server {
 
             while (true) {
                 try (Socket clientSocket = serverSocket.accept();
-                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                     Scanner in = new Scanner(clientSocket.getInputStream());
+                     Scanner scanner = new Scanner(System.in)) {
 
-                    String input = in.readLine();
+                    // Read input from the client
+                    String input = in.nextLine();
                     if (input != null) {
+                        // Compute MD5 hash (assuming MD5Manual.computeMD5 is implemented)
                         String md5Hash = MD5Manual.computeMD5(input);
-                        out.println(md5Hash);
+
+                        // Send MD5 hash back to the client
+                        clientSocket.getOutputStream().write((md5Hash + "\n").getBytes());
+
                         System.out.println("Calculated MD5 for: " + input + ", sent to client.");
                     }
                 } catch (IOException e) {
